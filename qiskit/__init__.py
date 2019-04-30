@@ -37,14 +37,17 @@ import qiskit.circuit.reset
 # importing the package you want to allow extensions for (in this case `backends`).
 __path__ = pkgutil.extend_path(__path__, __name__)
 
-# Please note these are global instances, not modules.
-from qiskit.providers.basicaer import BasicAer
+import os
 
-# Try to import the Aer provider if installed.
-try:
-    from qiskit.providers.aer import Aer
-except ImportError:
-    pass
+if os.getenv("QISKIT_SIMULATORS") != "FALSE":
+    # Please note these are global instances, not modules.
+    from qiskit.providers.basicaer import BasicAer
+    
+    # Try to import the Aer provider if installed.
+    try:
+        from qiskit.providers.aer import Aer
+    except ImportError:
+        pass
 # Try to import the IBMQ provider if installed.
 try:
     from qiskit.providers.ibmq import IBMQ
